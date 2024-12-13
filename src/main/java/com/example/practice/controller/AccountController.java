@@ -1,7 +1,6 @@
 package com.example.practice.controller;
 
 import com.example.practice.service.IF_AccountService;
-import com.example.practice.service.IF_LoginService;
 import com.example.practice.service.MailSendService;
 import com.example.practice.vo.*;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,14 +10,13 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +26,6 @@ import java.util.Map;
 public class AccountController {
 
     private final IF_AccountService accountService;
-    private final IF_LoginService loginService;
     private final MailSendService mailSendService;
 
     @PostMapping("/pSlip")
@@ -361,72 +358,63 @@ public class AccountController {
         workbook.write(response.getOutputStream());
         workbook.close();
     }
-//    @GetMapping("/allDataExcelDownload")
-//    public void allDataExcelDownload(HttpSession session, HttpServletResponse response) throws Exception {
-//        String searchKeyword = (String) session.getAttribute("searchKeyword");
-//        String rgtext = (String) session.getAttribute("rgtext");
-//
-//        Map<String, String> params = new HashMap<>();
-//        if (searchKeyword != null && rgtext != null) {
-//            params.put("searchKeyword", searchKeyword);
-//            if (searchKeyword.equals("name")) {
-//                params.put("rgName", rgtext);
-//            } else if (searchKeyword.equals("cmpy")) {
-//                params.put("rgCmpy", rgtext);
-//            }
-//        }
-//
-//        List<SliprgVO> allSliprgList = accountService.selectAllrgForExcel(params);
-//
-//        Workbook workbook = new XSSFWorkbook();
-//        Sheet sheet = workbook.createSheet("Search Results");
-//
-//        CellStyle headerStyle = workbook.createCellStyle();
-//        headerStyle.setAlignment(HorizontalAlignment.CENTER);
-//        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-//        headerStyle.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
-//        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-//
-//        Font headerFont = workbook.createFont();
-//        headerFont.setBold(true);
-//        headerFont.setColor(IndexedColors.BLACK.getIndex());
-//        headerStyle.setFont(headerFont);
-//
-//        Row headerRow = sheet.createRow(0);
-//        String[] headers = {"전표 코드", "전표 타입", "작성자 이름", "전표 등록 날짜", "계정과목", "거래처명",
-//                "금액", "부가세", "결제 수단", "적요"};
-//        for (int i = 0; i < headers.length; i++) {
-//            Cell cell = headerRow.createCell(i);
-//            cell.setCellValue(headers[i]);
-//            cell.setCellStyle(headerStyle);
-//        }
-//
-//        int rowIdx = 1;
-//        for (SliprgVO slip : allSliprgList) {
-//            Row row = sheet.createRow(rowIdx++);
-//            row.createCell(0).setCellValue(slip.getRgCode());
-//            row.createCell(1).setCellValue(slip.getRgslipCode());
-//            row.createCell(2).setCellValue(slip.getRgName());
-//            row.createCell(3).setCellValue(slip.getRgDate());
-//            row.createCell(4).setCellValue(slip.getRgslipName());
-//            row.createCell(5).setCellValue(slip.getRgCmpy());
-//            row.createCell(6).setCellValue(slip.getRgPrice());
-//            row.createCell(7).setCellValue(slip.getRgFee());
-//            row.createCell(8).setCellValue(slip.getRgPay());
-//            row.createCell(9).setCellValue(slip.getRgComment());
-//        }
-//
-//        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-//        response.setHeader("Content-Disposition", "attachment;filename=AllSearchResults.xlsx");
-//
-//        for (int i = 0; i < headers.length; i++) {
-//            sheet.autoSizeColumn(i);
-//            sheet.setColumnWidth(i, (sheet.getColumnWidth(i)) + 1024);
-//        }
-//
-//        workbook.write(response.getOutputStream());
-//        workbook.close();
-//    }
+    @GetMapping("/allexceldownload")
+    public void allcxelDownload(HttpSession session, HttpServletResponse response) throws Exception {
+        String searchKeyword = (String) session.getAttribute("searchKeyword");
+        String rgtext = (String) session.getAttribute("rgtext");
+
+        List<SliprgVO> sliprgList = (searchKeyword == null && rgtext == null)
+                ? Collections.emptyList()
+                : accountService.selectAllrgForExcel(searchKeyword, rgtext);
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("AllList");
+
+        CellStyle headerStyle = workbook.createCellStyle();
+        headerStyle.setAlignment(HorizontalAlignment.CENTER);
+        headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        headerStyle.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
+        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setColor(IndexedColors.BLACK.getIndex());
+        headerStyle.setFont(headerFont);
+
+        Row headerRow = sheet.createRow(0);
+        String[] headers = {"전표 코드", "전표 타입", "작성자 이름", "전표 등록 날짜", "계정과목", "거래처명",
+                "금액", "부가세", "결제 수단", "적요"};
+        for (int i = 0; i < headers.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(headers[i]);
+            cell.setCellStyle(headerStyle);
+        }
+
+        int rowIdx = 1;
+        for (SliprgVO slip : sliprgList) {
+            Row row = sheet.createRow(rowIdx++);
+            row.createCell(0).setCellValue(slip.getRgCode());
+            row.createCell(1).setCellValue(slip.getRgslipCode());
+            row.createCell(2).setCellValue(slip.getRgName());
+            row.createCell(3).setCellValue(slip.getRgDate());
+            row.createCell(4).setCellValue(slip.getRgslipName());
+            row.createCell(5).setCellValue(slip.getRgCmpy());
+            row.createCell(6).setCellValue(slip.getRgPrice());
+            row.createCell(7).setCellValue(slip.getRgFee());
+            row.createCell(8).setCellValue(slip.getRgPay());
+            row.createCell(9).setCellValue(slip.getRgComment());
+        }
+
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment;filename=AllList.xlsx");
+
+        for (int i = 0; i < headers.length; i++) {
+            sheet.autoSizeColumn(i);
+            sheet.setColumnWidth(i, (sheet.getColumnWidth(i)) + 1024);
+        }
+
+        workbook.write(response.getOutputStream());
+        workbook.close();
+    }
 
     @GetMapping("/incomedownload")
     public void incomedownload(HttpSession session, HttpServletResponse response) throws Exception {

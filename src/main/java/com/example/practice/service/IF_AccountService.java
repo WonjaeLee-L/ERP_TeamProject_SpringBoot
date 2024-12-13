@@ -7,7 +7,6 @@ import com.example.practice.vo.SliprgVO;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
-import java.util.Map;
 
 public interface IF_AccountService {
 	//서비스 작업을 메서드로 정의 합니다.
@@ -27,7 +26,7 @@ public interface IF_AccountService {
 //	List<SlipVO> selectpvName(Pagevo pagevo, String pvName) throws Exception;
 //	List<SlipVO> selectpvCmpy(Pagevo pagevo, String pvCmpy) throws Exception;
 
-//	List<SliprgVO> selectAllrgForExcel(Map<String, String> params) throws Exception;
+	List<SliprgVO> selectAllrgForExcel(String searchKeyword, String searchText) throws Exception;
 
 //	int countpvName(String pvName) throws Exception;
 //	int countpvCmpy(String pvCmpy) throws Exception;

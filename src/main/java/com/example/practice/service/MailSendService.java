@@ -1,8 +1,5 @@
 package com.example.practice.service;
 
-//import com.itextpdf.html2pdf.ConverterProperties;
-//import com.itextpdf.html2pdf.HtmlConverter;
-//import com.itextpdf.html2pdf.resolver.font.DefaultFontProvider;
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -12,7 +9,6 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Image;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;

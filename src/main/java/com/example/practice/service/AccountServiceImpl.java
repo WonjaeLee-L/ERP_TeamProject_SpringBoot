@@ -4,7 +4,6 @@ import com.example.practice.repository.IF_AccountDao;
 import com.example.practice.vo.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,22 +117,19 @@ public class AccountServiceImpl implements IF_AccountService{
 
 		return adao.countrgNameCmpy(params);
 	}
-//	@Override
-//	public List<SliprgVO> selectAllrgForExcel(Map<String, String> params) throws Exception {
-//		Map<String, Object> queryParams = new HashMap<>();
-//		String searchKeyword = params.get("searchKeyword");
-//
-//		if (searchKeyword != null) {
-//			queryParams.put("searchKeyword", searchKeyword);
-//			if ("name".equals(searchKeyword)) {
-//				queryParams.put("rgName", params.get("rgName"));
-//			} else if ("cmpy".equals(searchKeyword)) {
-//				queryParams.put("rgCmpy", params.get("rgCmpy"));
-//			}
-//		}
-//
-//		return adao.selectAllrgForExcel(queryParams);
-//	}
+	@Override
+	public List<SliprgVO> selectAllrgForExcel(String searchKeyword, String searchText) throws Exception {
+		Map<String, Object> params = new HashMap<>();
+		params.put("searchKeyword", searchKeyword);
+
+		if ("name".equals(searchKeyword)) {
+			params.put("rgName", searchText);
+		} else if ("cmpy".equals(searchKeyword)) {
+			params.put("rgCmpy", searchText);
+		}
+
+		return adao.selectAllrgForExcel(params);
+	}
 
 
 //    	@Override

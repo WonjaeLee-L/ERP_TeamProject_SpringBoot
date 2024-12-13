@@ -1,8 +1,12 @@
 package com.example.practice.controller;
 
-import org.springframework.stereotype.Controller;
+import lombok.RequiredArgsConstructor;
 
-@Controller
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequiredArgsConstructor
 public class LoginController {
 
 }

@@ -124,7 +124,10 @@ tr:hover td {
     cursor: pointer; /* 마우스 오버 시 포인터 */
     transition: background-color 0.3s ease; /* 부드러운 전환 효과 */
 }
-#excelsubmit {
+#exceldownloadforms {
+    display: flex;  /* excelsubmit 과 excelallsubmit을 위아래가 아닌 옆으로 두기 위한 설정 */
+}
+#excelsubmit, #excelallsubmit {
     background-color: #4CAF50; /* 초록색 배경 */
     border-radius: 5px; /* 둥근 모서리 */
     border: none; /* 테두리 제거 */
@@ -133,6 +136,7 @@ tr:hover td {
     padding: 12px 20px; /* 여백을 넉넉하게 */
     cursor: pointer; /* 마우스 오버 시 포인터 */
     transition: background-color 0.3s ease; /* 부드러운 전환 효과 */
+    margin-right: 10px;
 }
 #allDataExcelSubmit {
     background-color: #4CAF50; /* 초록색 배경 */

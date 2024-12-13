@@ -3,7 +3,6 @@ package com.example.practice.service;
 import com.example.practice.repository.IF_SignupDao;
 import com.example.practice.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
