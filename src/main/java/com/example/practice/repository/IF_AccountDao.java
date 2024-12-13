@@ -5,7 +5,6 @@ import com.example.practice.vo.Pagevo;
 import com.example.practice.vo.SlipVO;
 import com.example.practice.vo.SliprgVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public interface IF_AccountDao {
 
 	int countrgNameCmpy(Map<String, Object> params);
 
-//	List<SliprgVO> selectAllrgForExcel(Map<String, Object> params);
+	List<SliprgVO> selectAllrgForExcel(Map<String, Object> params);
 
 	//	List<SlipVO> selectpvName(Map<String, Object> params);
 	//	List<SlipVO> selectpvCmpy(Map<String, Object> params);

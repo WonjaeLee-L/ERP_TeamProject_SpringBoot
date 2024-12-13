@@ -3,8 +3,6 @@ package com.example.practice.repository;
 import com.example.practice.vo.ProductPageVO;
 import com.example.practice.vo.ProductVO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

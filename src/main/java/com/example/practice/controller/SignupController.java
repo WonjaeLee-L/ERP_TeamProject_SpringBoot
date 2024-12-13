@@ -4,6 +4,7 @@ import com.example.practice.service.IF_SignupService;
 import com.example.practice.vo.MemberVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -13,13 +14,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SignupController {
     private final IF_SignupService signupService;
+    private final PasswordEncoder passwordEncoder;  // PasswordEncoder 주입
 
     @PostMapping("/loginSignup")
     public ResponseEntity<Map<String, Object>> signup(@ModelAttribute MemberVO member) {
         Map<String, Object> result = new HashMap<>();
 
         try {
+            String encodedPassword = passwordEncoder.encode(member.getErpPass());
+            member.setErpPass(encodedPassword);
+
             member.setErpRole("user");
+
             int insertResult = signupService.insertOne(member);
 
             if (insertResult > 0) {

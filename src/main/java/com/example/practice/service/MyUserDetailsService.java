@@ -14,14 +14,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class MyUserDetailsService implements UserDetailsService {
     private final IF_LoginDao logindao;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String erpId) throws UsernameNotFoundException {
         try {
             MemberVO member = logindao.selectOne(erpId);
-            String passwordEncoding = passwordEncoder.encode(member.getErpPass());
-            return User.builder().username(member.getErpId()).password(passwordEncoding).roles(member.getErpRole()).build();
+            return User.builder().username(member.getErpId()).password(member.getErpPass()).roles(member.getErpRole()).build();
         } catch (Exception e) {
             e.printStackTrace();
         }
