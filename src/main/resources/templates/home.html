@@ -83,9 +83,11 @@
     </div>
   </div>
 </div>
-
+</body>
+</html>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+
     var calendarEl = document.getElementById('calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -100,30 +102,89 @@
       selectable: true,
       businessHours: true,
       dayMaxEvents: true,
-      height: 800,  // 캘린더 높이 고정
+      height: 800,
 
-      select: function(info) {
+      events: function(info, success, fail) {
+        fetch(`/eventAll`)
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Fail');
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  success(data);
+                })
+                .catch(error => {
+                  console.error('Error:', error);
+                  fail(error);
+                });
+      },
+
+      select: async function(info) {
         var title = prompt('일정을 입력하세요:');
         if (title) {
-          calendar.addEvent({
+          const eventData = {
             title: title,
             start: info.startStr,
             end: info.endStr,
             allDay: info.allDay
-          });
+          };
+
+          try {
+            const response = await fetch('/eventAdd', {
+              method: 'POST',
+              headers: {
+
+
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(eventData)
+            });
+
+            if (response.ok) {
+              const savedEvent = await response.json();
+              calendar.refetchEvents();
+            } else {
+              alert('일정 저장에 실패했습니다.');
+            }
+          } catch (error) {
+            console.error('일정 저장 중 오류:', error);
+            alert('일정 저장에 실패했습니다.');
+          }
         }
         calendar.unselect();
       },
-    datesSet: function(info) {
-      var titleElement = document.querySelector('.fc-toolbar-title');
-      if (info.view.type === 'dayGridMonth' && info.start.getFullYear() === 2024 && info.start.getMonth() === 11) {
-        titleElement.textContent =`< ${titleElement.textContent} > 일정 관리`;
+
+      eventClick: async function(info) {
+        if (confirm('이 일정을 삭제하시겠습니까?')) {
+          try {
+            const response = await fetch(`/eventDel?id=${info.event.id}`, {
+              method: 'DELETE'
+            });
+
+            if (response.ok) {
+              info.event.remove();
+              calendar.refetchEvents();
+            } else {
+              alert('일정 삭제에 실패했습니다.');
+            }
+          } catch (error) {
+            console.error('일정 삭제 중 오류 발생:', error);
+            alert('일정 삭제에 실패했습니다.');
+          }
+        }
+      },
+
+      datesSet: function(info) {
+        var titleElement = document.querySelector('.fc-toolbar-title');
+        if (info.view.type === 'dayGridMonth' && info.start.getFullYear() === 2024 && info.start.getMonth() === 11) {
+          titleElement.textContent =`< ${titleElement.textContent} > 일정 관리`;
+        }
       }
-    }
-  });
+    });
 
     calendar.render();
   });
+
 </script>
-</body>
-</html>

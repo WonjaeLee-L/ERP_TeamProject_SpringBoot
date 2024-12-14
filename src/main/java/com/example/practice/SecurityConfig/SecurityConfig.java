@@ -1,5 +1,6 @@
 package com.example.practice.SecurityConfig;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,6 +56,11 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/index")
                         .usernameParameter("erpId")
                         .passwordParameter("erpPass")
+                        .successHandler((request, response, authentication) -> {
+                            HttpSession session = request.getSession();
+                            session.setAttribute("erpId", authentication.getName());
+                            response.sendRedirect("/index");
+                        })
                         .failureUrl("/signin?error=true")
                         .permitAll()
                 )

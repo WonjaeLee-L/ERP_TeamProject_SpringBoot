@@ -30,11 +30,6 @@ public class AccountServiceImpl implements IF_AccountService{
 	public int totalCountPV() throws Exception {
 		return adao.totalCountPV();
 	}
-//	@Override
-//	public RevenueVO selectOne(String revenueCode) throws Exception {
-//		// TODO Auto-generated method stub
-//		return adao.selectOne(revenueCode);
-//	}
 
 	@Override
 	public void psInsert(SlipVO slipvo) throws Exception {
