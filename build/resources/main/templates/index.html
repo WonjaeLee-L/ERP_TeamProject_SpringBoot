@@ -19,7 +19,7 @@
 <body>
 <header>
   <div class="logo">
-    <img src="/image/logo.jpg" alt="">
+    <img src="/image/logo.jpg" alt="" onclick="home()">
   </div>
   <div class="welcome-message">
     <span th:text="${#authentication.principal.username}"></span>님, 환영합니다.
@@ -77,6 +77,10 @@
       function manageProduct() {
         const before = document.getElementById('homeview');
         before.src = contextPath + 'productList';
+      }
+      function home() {
+        const before = document.getElementById('homeview');
+        before.src = contextPath + 'home';
       }
     </script>
 
@@ -290,28 +294,6 @@
     document.getElementById("vat").value = Math.round(amount * 0.1); // 10% 부가세 계산
   }
 
-  // // 폼 제출 처리(비동기 처리 시 필요할 수 있음)
-  // document.getElementById("slipForm").onsubmit = function(e) {
-  //   e.preventDefault();
-  //
-  //   const formData = {
-  //     slipType: document.getElementById("slipType").value,
-  //     writerName: document.getElementById("writerName").value,
-  //     date: document.getElementById("slipDate").value,
-  //     accountType: document.getElementById("accountType").value,
-  //     customer: document.getElementById("customer").value,
-  //     amount: document.getElementById("amount").value,
-  //     vat: document.getElementById("vat").value,
-  //     paymentMethod: document.getElementById("paymentMethod").value,
-  //     description: document.getElementById("description").value
-  //   };
-  //
-  //   console.log("전표 데이터:", formData);
-  //
-  //   // 폼 초기화 및 모달 닫기
-  //   this.reset();
-  //   closeModal();
-  // }
   function submitForm(event) {
     event.preventDefault();
 
