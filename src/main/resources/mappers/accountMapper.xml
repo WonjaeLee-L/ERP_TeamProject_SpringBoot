@@ -140,12 +140,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		order by RGCODE ASC
 	</select>
-<!--	<select id="countrgName" resultType="int">-->
-<!--		select count(*) from ERPSLIPRG where RGNAME = #{rgName}-->
-<!--	</select>-->
-<!--	<select id="countrgCmpy" resultType="int">-->
-<!--		select count(*) from ERPSLIPRG where RGCMPY = #{rgCmpy}-->
-<!--	</select>-->
 	<select id="selectByrgType" resultType="com.example.practice.vo.SliprgVO">
 		SELECT t.* FROM (select sub.*, rownum as rnum from (select
 																RGCODE,
@@ -351,76 +345,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select ERPNAME from ERPMEMBER where ERPID = #{erpId}
 	</select>
 </mapper>
-
-		<!--	<select id="selectpvName" resultType="com.example.practice.vo.SlipVO">-->
-		<!--		select t.* from (-->
-		<!--							select sub.*, rownum as rnum from (-->
-		<!--																  select-->
-		<!--																	  PVCODE,-->
-		<!--																	  PVSLIPCODE,-->
-		<!--																	  PVNAME,-->
-		<!--																	  PVDATE,-->
-		<!--																	  PVSLIPNAME,-->
-		<!--																	  PVCMPY,-->
-		<!--																	  PVPRICE,-->
-		<!--																	  PVFEE,-->
-		<!--																	  PVPAY,-->
-		<!--																	  PVCOMMENT-->
-		<!--																  from ERPSLIPPV where PVNAME = #{pvName} order by PVCODE ASC-->
-		<!--															  ) sub-->
-		<!--						) t where rnum between #{startNO} and #{endNO}-->
-		<!--	</select>-->
-		<!--	<select id="selectpvCmpy" resultType="com.example.practice.vo.SlipVO">-->
-		<!--		select t.* from (select sub.*, rownum as rnum from (select-->
-		<!--																PVCODE,-->
-		<!--																PVSLIPCODE,-->
-		<!--																PVNAME,-->
-		<!--																PVDATE,-->
-		<!--																PVSLIPNAME,-->
-		<!--																PVCMPY,-->
-		<!--																PVPRICE,-->
-		<!--																PVFEE,-->
-		<!--																PVPAY,-->
-		<!--																PVCOMMENT-->
-		<!--		                                                        from ERPSLIPPV where PVCMPY = #{pvCmpy} order by PVCODE ASC) sub)-->
-		<!--		t where rnum between #{startNO} and #{endNO}-->
-		<!--	</select>-->
-
-		<!--	<select id="countpvName" resultType="int">-->
-		<!--		select count(*) from ERPSLIPPV where PVNAME = #{pvName}-->
-		<!--	</select>-->
-		<!--	<select id="countpvCmpy" resultType="int">-->
-		<!--		select count(*) from ERPSLIPPV where PVCMPY = #{pvCmpy}-->
-		<!--	</select>-->
-		<!--	<select id="selectrgName" resultType="com.example.practice.vo.SliprgVO">-->
-		<!--		select t.* from (-->
-		<!--							select sub.*, rownum as rnum from (-->
-		<!--																  select-->
-		<!--																	  RGCODE,-->
-		<!--																	  RGSLIPCODE,-->
-		<!--																	  RGNAME,-->
-		<!--																	  RGDATE,-->
-		<!--																	  RGSLIPNAME,-->
-		<!--																	  RGCMPY,-->
-		<!--																	  RGPRICE,-->
-		<!--																	  RGFEE,-->
-		<!--																	  RGPAY,-->
-		<!--																	  RGCOMMENT-->
-		<!--																  from ERPSLIPRG where RGNAME = #{rgName} order by RGCODE ASC-->
-		<!--															  ) sub-->
-		<!--						) t where rnum between #{startNO} and #{endNO}-->
-		<!--	</select>-->
-		<!--	<select id="selectrgCmpy" resultType="com.example.practice.vo.SliprgVO">-->
-		<!--		select t.* from (select sub.*, rownum as rnum from (select-->
-		<!--																RGCODE,-->
-		<!--																RGSLIPCODE,-->
-		<!--																RGNAME,-->
-		<!--																RGDATE,-->
-		<!--																RGSLIPNAME,-->
-		<!--																RGCMPY,-->
-		<!--																RGPRICE,-->
-		<!--																RGFEE,-->
-		<!--																RGPAY,-->
-		<!--																RGCOMMENT from ERPSLIPRG where RGCMPY = #{rgCmpy} order by RGCODE ASC) sub)-->
-		<!--							t where rnum between #{startNO} and #{endNO}-->
-		<!--	</select>-->
