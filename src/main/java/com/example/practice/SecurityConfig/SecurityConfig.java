@@ -61,7 +61,7 @@ public class SecurityConfig {
                             session.setAttribute("erpId", authentication.getName());
                             response.sendRedirect("/index");
                         })
-                        .failureUrl("/signin?error=true")
+                        .failureUrl("/?error=true")
                         .permitAll()
                 )
                 .logout(logout -> logout

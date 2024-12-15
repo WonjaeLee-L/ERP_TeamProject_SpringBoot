@@ -163,6 +163,10 @@
 <main>
     <div class="login-container">
         <img src="/image/logo.jpg" alt="Logo">
+        <!-- 로그인 실패로 인해 URL에 error 파라미터가 있을 때만 해당 div를 보여주는 조건부 렌더링 -->
+        <div th:if="${param.error}" class="error-message">
+            아이디 또는 비밀번호가 일치하지 않습니다.
+        </div>
         <form id="login-form" action="/login" method="POST">
             <div class="input-group">
                 <label for="erpId">아이디</label>
