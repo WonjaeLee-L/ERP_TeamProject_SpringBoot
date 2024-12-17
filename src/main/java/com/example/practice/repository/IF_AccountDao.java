@@ -15,7 +15,6 @@ import java.util.Map;
 @Repository
 public interface IF_AccountDao {
 
-//	public RevenueVO selectOne(String revenueCode) throws Exception;
 	public List<SlipVO> selectAll(Pagevo pagevo) throws Exception;
 	public int totalCountPV() throws Exception;
 	public void psInsert(SlipVO slipvo)throws Exception;
@@ -29,11 +28,6 @@ public interface IF_AccountDao {
 	int countrgNameCmpy(Map<String, Object> params);
 
 	List<SliprgVO> selectAllrgForExcel(Map<String, Object> params);
-
-	//	List<SlipVO> selectpvName(Map<String, Object> params);
-	//	List<SlipVO> selectpvCmpy(Map<String, Object> params);
-	//	int countpvName(String pvName);
-	//	int countpvCmpy(String pvCmpy);
 
 	// 타입별 전표 목록 조회
 	List<SlipVO> selectByType(Map<String, Object> params);

@@ -21,26 +21,6 @@ public class Pagevo {
 	private String searchType;
 	private String searchKeyword;
 
-
-//	private void calcPage() {
-//		startNo = (this.page - 1) * perPageNum + 1; // Starting number for the page
-//
-//		int totalPageCount = (int) Math.ceil((double) totalCount / perPageNum);
-//		int tempEnd = (int) Math.ceil((double) page / perPageNum) * perPageNum;
-//
-//		this.startPage = (tempEnd - perPageNum) + 1;
-//
-//		this.endPage = Math.min(tempEnd, totalPageCount);
-//
-//		this.endNo = startNo + perPageNum - 1;
-//		if (this.endNo > totalCount) {
-//			this.endNo = totalCount;  // Correct endNo if it exceeds totalCount
-//		}
-//
-//		this.prev = this.startPage > 1;
-//		this.next = this.endPage < totalPageCount;  // Correct check for next page
-//	}
-
 	private void calcPage() {
 		// totalCount가 0일 때의 처리 추가
 		if (totalCount == 0) {
