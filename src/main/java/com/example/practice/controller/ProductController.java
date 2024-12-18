@@ -57,30 +57,43 @@ public class ProductController {
         productservice.insertProduct(productVO);
     }
 
-    // mod product_1
     @PostMapping("/modProductInfo")
-    public String modProduct(@Valid @ModelAttribute ProductVO productVO, BindingResult result,
-                             @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
-        ProductPageVO productPageVO = new ProductPageVO();
-        if (productPageVO.getPage() == null) {
-            productPageVO.setPage(1);
-        }
-        productPageVO.setTotalCount(productservice.totalproductcount());
-        if (result.hasErrors()) {
-            result.getAllErrors().forEach(error -> {
-                System.out.println(error.toString());
-            });
+    @ResponseBody
+    public ResponseEntity<?> modProduct(@Valid @ModelAttribute ProductVO productVO,
+                                        BindingResult result,
+                                        @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
 
-            return "manageProduct";
+        // 기존 데이터 조회
+        ProductVO existingProduct = productservice.getProductByNum(productVO.getNum());  // 이 메서드 추가 필요
+
+        // 새 이미지가 없으면 기존 이미지 경로 사용
+        if (file == null || file.isEmpty()) {
+            productVO.setProduct_img(existingProduct.getProduct_img());
         }
-        modImage(productVO, file);
-        productservice.updateProduct(productVO);
-        return "redirect:productList";
+
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(result.getAllErrors());
+        }
+
+        try {
+            modImage(productVO, file);
+            productservice.updateProduct(productVO);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("success", true);
+            response.put("productImg", productVO.getProduct_img());
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage() != null ? e.getMessage() : "Unknown error occurred");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
     }
 
-    // mod product_2
     private void modImage(ProductVO productVO, MultipartFile file) throws Exception {
         if (file != null && !file.isEmpty()) {
+            // 새로운 이미지가 업로드된 경우에만 이미지 변경
             deleteImage(productVO);
             String absolutePath = productFile.saveFile(file);
             if (absolutePath != null) {

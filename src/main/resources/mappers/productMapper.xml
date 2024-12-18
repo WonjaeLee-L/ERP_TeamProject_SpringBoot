@@ -99,7 +99,7 @@
             CATEGORY_CODE   = #{category_code},
             PRODUCT_EXPLAIN = #{product_explain},
             COMPANY_CODE    = #{company_code},
-            PRODUCT_IMG     = #{product_img}
+            PRODUCT_IMG     = #{product_img,jdbcType=VARCHAR}
         where NUM = #{num}
     </update>
 
@@ -108,4 +108,7 @@
         values (pro_seq.nextval, #{product_code}, #{product_name}, #{sale_price}, #{price}, #{category_code}, #{product_img},
                 #{product_explain}, #{company_code})
     </insert>
+    <select id="selectProductByNum" resultType="com.example.practice.vo.ProductVO">
+        SELECT * FROM ERPPRODUCT WHERE NUM = #{num}
+    </select>
 </mapper>

@@ -23,4 +23,6 @@ public interface IF_ProductService {
     public void updateProduct(ProductVO productVO) throws Exception;
 
     public int totalproductcount() throws Exception;
+
+    ProductVO getProductByNum(int num) throws Exception;
 }

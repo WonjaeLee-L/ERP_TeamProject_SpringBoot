@@ -110,8 +110,8 @@
             <th class="product_table">상품 번호</th>
             <th class="product_table">상품 코드</th>
             <th class="product_table">상품 이름</th>
-            <th class="product_table">공급 가격</th>
             <th class="product_table">판매 가격</th>
+            <th class="product_table">공급 가격</th>
             <th class="product_table">
                 <form>
                     <div class="selectDiv">
@@ -131,7 +131,7 @@
             </th>
             <th class="product_table" id="th_img">상품 사진</th>
             <th class="product_table">상품 설명</th>
-            <th class="product_table">회사 코드</th>
+            <th class="product_table">회사명</th>
         </tr>
         </thead>
         <tbody id="wonjae">
@@ -427,7 +427,7 @@
 
     // product mod
     $(document).on('click', '#modProduct', function (event) {
-        // event.preventDefault()
+        event.preventDefault()
         let formData = new FormData();
         let updatedImgFile = document.querySelector('#modModalFile').files[0];
 
@@ -462,8 +462,8 @@
                     $(this).attr('src', '/external/productImg/default/defaultImage.png');
                 }).show();
                 // formSubmitted = false;
-                // location.reload();
                 $('#tableModal').hide();
+                location.reload();
                 // return this.url;
 
             },
@@ -474,7 +474,6 @@
                 // formSubmitted = false;
             }
         });
-        return true;
     });
 
 
