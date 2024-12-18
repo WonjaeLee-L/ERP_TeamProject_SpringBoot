@@ -35,7 +35,21 @@
     </button>
     <div class="dropdown-content">
       <a href="#" data-bs-toggle="modal" data-bs-target="#addProduct">상품 등록</a>
-      <a href="#" onclick="manageProduct()">상품 수정, 삭제, 전체보기</a>
+      <a href="#" onclick="manageProduct()">상품 관리</a>
+    </div>
+  </div>
+
+
+
+  <br>
+  <br>
+  <div class="dropdown">
+    <button class="dropbtn">
+      <span class="dropbtn_icon"><i class="fa-solid fa-truck"></i>&ensp;입고</span>
+    </button>
+    <div class="dropdown-content">
+      <a href="#" data-bs-toggle="modal" data-bs-target="">상품 입고</a>
+      <a href="#" onclick="receivingGoods()">입고 현황</a>
     </div>
   </div>
   <br>
@@ -81,6 +95,10 @@
       function home() {
         const before = document.getElementById('homeview');
         before.src = contextPath + 'home';
+      }
+      function receivingGoods() {
+        const before = document.getElementById('homeview');
+        before.src = contextPath + 'receivingGoods';
       }
     </script>
 
@@ -177,11 +195,11 @@
             <input type="text" class="form-control" id="inputProduct" name="product_name">
           </div>
           <div class="col-md-5">
-            <label for="inputSale" class="form-label">판매가</label>
+            <label for="inputSale" class="form-label">판매 가격</label>
             <input type="number" class="form-control" id="inputSale" name="sale_price">
           </div>
           <div class="col-md-5">
-            <label for="inputPrice" class="form-label">가격</label>
+            <label for="inputPrice" class="form-label">공급 가격</label>
             <input type="number" class="form-control" id="inputPrice" name="price">
           </div>
           <div class="col-12">

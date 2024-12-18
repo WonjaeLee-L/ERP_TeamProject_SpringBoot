@@ -5,6 +5,7 @@ import com.example.practice.vo.ProductPageVO;
 import com.example.practice.vo.ProductVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -47,6 +48,7 @@ public class ProductServiceImpl implements IF_ProductService{
     }
 
     @Override
+    @Transactional
     public void updateProduct(ProductVO productVO) throws Exception {
         productDao.updateProduct(productVO);
     }
@@ -56,5 +58,9 @@ public class ProductServiceImpl implements IF_ProductService{
         return productDao.productCount();
     }
 
+    @Override
+    public ProductVO getProductByNum(int num) throws Exception {
+        return productDao.selectProductByNum(num);
+    }
 
 }

@@ -20,4 +20,5 @@ public interface IF_ProductDao {
     public void updateProduct(ProductVO productVO) throws Exception;
     public int productCount() throws Exception;
     public int countSearchProduct(ProductVO productVO) throws Exception;
+    ProductVO selectProductByNum(int num) throws Exception;
 }

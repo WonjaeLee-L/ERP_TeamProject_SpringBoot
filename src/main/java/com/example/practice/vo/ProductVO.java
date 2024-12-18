@@ -24,6 +24,5 @@ public class ProductVO {
     String category_code;
     String product_img;
     String product_explain;
-    @Pattern(regexp = "[0-9]{4}", message = "숫자(4자리) 입력")
     String company_code;
 }
